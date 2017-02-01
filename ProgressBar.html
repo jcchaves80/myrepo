@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>ProgressBar</title>
+    <link rel="stylesheet" href="Style.css" />
+</head>
+<body>
+    <table id="rcorners1" style="width: 500px; background-color: lightgray;">
+        <tr>
+            <td style="background-color: black; color: #FFFFFF;">Your Progress</td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">
+                <table id="rcorners2" style="width: 450px; margin: 10px;">
+                    <tr>
+                        <td style="width:100px; text-align: right; font-weight:bold; color: gray;">Reached:</td>
+                        <td style="width:250px">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <progress id="progressBar" value="0" max="100"></progress>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-left: 125px;">
+                                        $<label id="reached"></label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width:100px">
+                            <table style="width:60px; height:60px; border: 0.5px solid black;">
+                                <tr>
+                                    <td style="background-color: gray; color: #FFFFFF; text-align: center;">Target<br />$<label id="total">125</label></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="color: gray; text-align: right">You need $<label id="diff"></label> more to reach your target</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+    <script>
+        window.onload = addTenPercent();
+
+        function addTenPercent() {
+            var bar = document.getElementById("progressBar");
+            if (bar.value <= 56) {
+                setInterval(addTenPercent, 250);
+                var total = document.getElementById("total").textContent;
+                var calcDiff = parseInt(total) - bar.value;
+                var diff = document.getElementById("diff").textContent;
+                ////alert(diff);
+                //var label = diff.labels[0];
+                document.getElementById("diff").textContent = calcDiff;
+                document.getElementById("reached").textContent = bar.value;
+                bar.value += 1;
+            }
+
+        }
+
+        //var t2 = document.getElementById("progressBar");
+
+        t2.addEventListener("click", function (e) {
+            var x = e.pageX - this.offsetLeft;
+            var startPos = document.getElementById('progressBar').position;
+            var xconvert = (x-145) / 300;
+            var finalx = (xconvert).toFixed(1);
+            document.getElementById('progressBar').value = finalx;
+        });
+    </script>
+</body>
+</html>
